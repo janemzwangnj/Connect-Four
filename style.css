@@ -1,0 +1,56 @@
+html,
+body {
+  text-align: center;
+
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+section {
+  width: 450px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px 20px;
+
+  height: 50px;
+  width: 450px;
+  margin: auto;
+  background-color: aqua;
+}
+#board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, fr);
+  gap: 2px;
+
+  background-color: white;
+}
+.btn {
+  height: 40px;
+  width: 40px;
+  background-color: lightblue;
+  background-position: center;
+  border-radius: 20px;
+  border: 20p solid black;
+}
+#hovClick {
+  height: 50px;
+  padding: 20px 0;
+  background-color: lightblue;
+}
+#whole-board {
+  width: 350px;
+}
+#start {
+  width: 50px;
+  height: 50px;
+  margin: auto;
+}
