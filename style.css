@@ -41,6 +41,7 @@ nav {
 .btn {
   height: 40px;
   width: 40px;
+  align-content: center;
   background-color: lightblue;
   background-position: center;
   border-radius: 20px;
@@ -81,4 +82,16 @@ nav {
   margin: auto;
   padding: 10px;
   background-color: olivedrab;
+}
+.column {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.column:hover,
+#column3:hover,
+#column4:hover,
+#column5:hover,
+#column6:hover,
+#column7:hover {
+  background-color: moccasin;
 }
