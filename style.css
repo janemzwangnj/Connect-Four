@@ -12,7 +12,9 @@ section {
   width: 450px;
   margin: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: wheat;
 }
 nav {
   display: flex;
@@ -23,7 +25,8 @@ nav {
   height: 50px;
   width: 450px;
   margin: auto;
-  background-color: aqua;
+  padding: 10px;
+  background-color: olivedrab;
 }
 #board {
   display: grid;
@@ -31,7 +34,9 @@ nav {
   grid-template-rows: repeat(6, fr);
   gap: 2px;
 
-  background-color: white;
+  margin: auto;
+  padding: 5px;
+  background-color: #859241;
 }
 .btn {
   height: 40px;
@@ -43,14 +48,37 @@ nav {
 }
 #hovClick {
   height: 50px;
-  padding: 20px 0;
+  padding: 10px 5px;
   background-color: lightblue;
 }
 #whole-board {
   width: 350px;
 }
 #start {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   margin: auto;
+  padding: 5px;
+  font-size: 20px;
+  background: teal;
+}
+#trangle-down {
+  width: 0;
+  height: 0;
+  padding: auto;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 40px solid rgb(174, 150, 150);
+}
+#bottom {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px 20px;
+
+  height: 50px;
+  width: 450px;
+  margin: auto;
+  padding: 10px;
+  background-color: olivedrab;
 }
