@@ -210,14 +210,21 @@ const chooseRow = (aColumn) => {
 
 const checkWinning = (aButton) => {
   let currId = aButton.getAttribute('id');
+  let bottom = getBottom(currId);
   let left = getLeft(currId);
   let right = getRight(currId);
   let topLeft = getTopLeft(currId);
   let bottomRight = getBottomRight(currId);
   let bottomLeft = getBottomLeft(currId);
   let topRight = getTopRight(currId);
+  bottomToDown(bottom);
+  leftToRight(left, right);
+  topLeftToBottomRight(topLeft, bottomRight);
+  bottomLeftToTopRight(bottomLeft, topRight);
+};
 
-  let count = 0;
+const bottomLeftToTopRight = (bottomLeft, topRight) => {
+  count = 0;
   while (count < 4) {
     if (
       parseInt(bottomLeft) > 0 &&
@@ -234,29 +241,13 @@ const checkWinning = (aButton) => {
       count++;
       topRight = getTopRight(topRight.toString());
     } else break;
-
-    if (count === 3) {
-      console.log(`${currentPlayer} is the Winner!`);
-      document.getElementById('turn').innerText = 'Game is Over!';
-      document.getElementById(
-        'winner'
-      ).innerText = `${currentPlayer} is Winner!!!`;
-      for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].classList.length === 1) {
-          buttons[i].classList.add('temp');
-        }
-      }
-    }
+  }
+  if (count === 3) {
+    winSetup();
   }
 };
 
-/* const checkWinning = (aButton) => {
-  let currId = aButton.getAttribute('id');
-  let left = getLeft(currId);
-  let right = getRight(currId);
-  let topLeft = getTopLeft(currId);
-  let bottomRight = getBottomRight(currId);
-
+const topLeftToBottomRight = (topLeft, bottomRight) => {
   let count = 0;
   while (count < 4) {
     if (
@@ -273,26 +264,13 @@ const checkWinning = (aButton) => {
       count++;
       bottomRight = getBottomRight(bottomRight.toString());
     } else break;
-
-    if (count === 3) {
-      console.log(`${currentPlayer} is the Winner!`);
-      document.getElementById('turn').innerText = 'Game is Over!';
-      document.getElementById(
-        'winner'
-      ).innerText = `${currentPlayer} is Winner!!!`;
-      for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].classList.length === 1) {
-          buttons[i].classList.add('temp');
-        }
-      }
-    }
   }
-}; */
+  if (count === 3) {
+    winSetup();
+  }
+};
 
-/* const checkWinning = (aButton) => {
-  let currId = aButton.getAttribute('id');
-  let left = getLeft(currId);
-  let right = getRight(currId);
+const leftToRight = (left, right) => {
   let count = 0;
   while (count < 4) {
     if (
@@ -308,51 +286,39 @@ const checkWinning = (aButton) => {
       count++;
       right = getRight(right.toString());
     } else break;
+  }
+  if (count === 3) {
+    winSetup();
+  }
+};
 
-    if (count === 3) {
-      console.log(`${currentPlayer} is the Winner!`);
-      document.getElementById('turn').innerText = 'Game is Over!';
-      document.getElementById(
-        'winner'
-      ).innerText = `${currentPlayer} is Winner!!!`;
-      for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].classList.length === 1) {
-          buttons[i].classList.add('temp');
-        }
-      }
+const bottomToDown = (bottom) => {
+  let count = 0;
+  while (count < 4) {
+    if (
+      parseInt(bottom) > 0 &&
+      document.getElementById(bottom.toString()).classList[1] === currentPlayer
+    ) {
+      count++;
+      bottom = getBottom(bottom.toString());
+    } else break;
+  }
+  if (count === 3) {
+    winSetup();
+  }
+};
+
+//reset 42 cells on the board when ther is a win case happened
+const winSetup = () => {
+  console.log(`${currentPlayer} is the Winner!`);
+  document.getElementById('turn').innerText = 'Game is Over!';
+  document.getElementById('winner').innerText = `${currentPlayer} is Winner!!!`;
+  for (let i = 0; i < buttons.length; i++) {
+    if (buttons[i].classList.length === 1) {
+      buttons[i].classList.add('temp');
     }
   }
 };
- */
-/* const checkWinning = (aButton) => {
-  let currId = aButton.getAttribute('id');
-  let bottom = getBottom(currId);
-  let count = 0;
-  while (count < 4) {
-    if (parseInt(bottom) > 0) {
-      let bottomBtn = document.getElementById(bottom.toString());
-      if (bottomBtn.classList[1] === currentPlayer) {
-        count++;
-        bottom = getBottom(bottom.toString());
-      } else {
-        console.log('the bottom is the different color');
-        break;
-      }
-      if (count === 3) {
-        console.log(`${currentPlayer} is the Winner!`);
-        document.getElementById('turn').innerText = 'Game is Over!';
-        document.getElementById(
-          'winner'
-        ).innerText = `${currentPlayer} is Winner!!!`;
-        for (let i = 0; i < buttons.length; i++) {
-          if (buttons[i].classList.length === 1) {
-            buttons[i].classList.add('temp');
-          }
-        }
-      }
-    } else break;
-  }
-}; */
 
 // a function for getting the topRight of an id
 const getTopRight = (aId) => {
