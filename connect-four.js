@@ -1,16 +1,16 @@
 // Global Variables Here
 
 class Cell {
-  top = '';
-  bottom = '';
-  left = '';
-  right = '';
-  topRight = '';
-  topLeft = '';
-  bottomRight = '';
-  bottomLeft = '';
   constructor(id) {
     this.id = id;
+    this.top = 0;
+    this.bottom = 0;
+    this.left = 0;
+    this.right = 0;
+    this.topRight = 0;
+    this.topLeft = 0;
+    this.bottomRight = 0;
+    this.bottomLeft = 0;
   }
 }
 //create a cells array to hold all buttons in a mesh
@@ -165,6 +165,7 @@ for (let x = 0; x < numOfColumns; x++) {
     cells.push(aCell);
   }
 }
+//console.log(cells);
 // the code block from line 16 to line 167 is building a objec arry
 // each object of cell has 8 neighbors (top, bottom, left, right, topLeft,topRight, bottomLeft and bottomRight)
 
@@ -177,60 +178,88 @@ let currentPlayer = players[0];
 // Functions For Game Logic Here
 const inputRedBlack = (aColumn, x) => {
   if (currentPlayer === players[0]) {
-    //console.log('here will set red in column x');
-    console.log(aColumn.children[0].classList);
-    let i = 0;
-    while (i < aColumn.children.length) {
-      let arr = aColumn.children[i].classList;
-      console.log(arr);
-      if (arr.length === 1) {
-        arr.add('red');
-        aColumn.children[i].style.backgroundColor = 'red';
-        break;
-      }
-      i = i + 1;
-    }
-
-    checkWinning();
+    chooseRow(aColumn);
     currentPlayer = players[1];
   } else if (currentPlayer === players[1]) {
-    //console.log('here will set black in column x');
-    let j = 0;
-    while (j < aColumn.children.length) {
-      let arr = aColumn.children[j].classList;
-      console.log(arr);
-      if (arr.length === 1) {
-        arr.add('black');
-        aColumn.children[j].style.backgroundColor = 'black';
-        break;
-      }
-      j = j + 1;
-    }
-
-    checkWinning();
+    chooseRow(aColumn);
     currentPlayer = players[0];
   }
   document.getElementById('turn').innerText = `${currentPlayer}\'s turn now!`;
 };
 
-/* const aButton = document.getElementById('1');
-let arr = aButton.classList;
-console.log(arr.length);
-arr.add('red');
-console.log(arr); */
-//console.log(document.getElementsByClassName('black'));
-//console.log(aButton.classList[1]);
-//console.log(aButton);
-
-const checkWinning = () => {
-  console.log('here is check winn');
+const chooseRow = (aColumn) => {
+  let i = 0;
+  while (i < aColumn.children.length) {
+    let arr = aColumn.children[i].classList;
+    // console.log(arr);
+    if (arr.length === 1) {
+      arr.add(currentPlayer);
+      aColumn.children[i].style.backgroundColor = currentPlayer;
+      checkWinning(aColumn.children[i]);
+      //console.log(aColumn.children[i]);
+      break;
+    }
+    i = i + 1;
+  }
 };
+
+const checkWinning = (aButton) => {
+  //console.log(`here is check winn and ${currentPlayer}`);
+  let currId = aButton.getAttribute('id');
+  let cell1 = getCellByID(currId);
+  //console.log(cell1);
+  if (parseInt(cell1.bottom) > 0) {
+    console.log('one level low');
+    let bottom1 = parseInt(cell1.bottom);
+
+    let bottomBtn1 = document.getElementById(bottom1);
+    let cell2 = getCellByID(bottom1);
+    console.log(cell2);
+    console.log('cell2');
+    if (cell2.bottom > 0) {
+      console.log('two level low');
+      let bottom2 = cell2.bottom;
+      let bottomBtn2 = document.getElementById(bottom2);
+      let cell3 = getCellByID(bottom2);
+      if (cell3.bottom > 0) {
+        console.log('three level low');
+        let bottom3 = cell3.bottom;
+        let bottomBtn3 = document.getElementById(bottom3);
+        if (
+          bottomBtn1.classList[1] === currentPlayer &&
+          bottomBtn2.classList[1] === currentPlayer &&
+          bottomBtn3.classList[1] === currentPlayer
+        ) {
+          console.log(`${currentPlayer} is the Winner!`);
+        }
+      }
+    }
+  }
+};
+
+// a function for getting a cell by id
+const getCellByID = (id) => {
+  let aCell = new Cell(0);
+  if (id > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === id) {
+        aCell = cells[i];
+      }
+    }
+  }
+  return aCell;
+};
+
+//this function is for restart the game
 const restart = () => {
-  console.log('here is restart function. will complete later');
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].style.backgroundColor = 'lightblue';
+    buttons[i].className = 'btn';
+  }
 };
 ////////////////////////////////
 // Event Listeners Here
-function gameStart() {
+const gameStart = () => {
   for (let i = 0; i < columns.length; i++) {
     columns[i].addEventListener('click', () => {
       //  console.log(columns[i]);
@@ -241,7 +270,7 @@ function gameStart() {
   restartButton.addEventListener('click', () => {
     restart();
   });
-}
+};
 
 /////////////////////////////
 gameStart();
