@@ -184,16 +184,23 @@ const inputRedBlack = (aColumn, x) => {
     chooseRow(aColumn);
     currentPlayer = players[0];
   }
-  document.getElementById('turn').innerText = `${currentPlayer}\'s turn now!`;
 };
 
 const chooseRow = (aColumn) => {
+  //this temPlayer is just for showing turns
+  let tmpPlayer = currentPlayer;
+  if (tmpPlayer === 'Red') {
+    tmpPlayer = 'Black';
+  } else if (tmpPlayer === 'Black') {
+    tmpPlayer = 'Red';
+  }
   let i = 0;
   while (i < aColumn.children.length) {
     let arr = aColumn.children[i].classList;
     if (arr.length === 1) {
       arr.add(currentPlayer);
       aColumn.children[i].style.backgroundColor = currentPlayer;
+      document.getElementById('turn').innerText = `${tmpPlayer}\'s turn now!`;
       checkWinning(aColumn.children[i]);
       break;
     }
@@ -203,31 +210,102 @@ const chooseRow = (aColumn) => {
 
 const checkWinning = (aButton) => {
   let currId = aButton.getAttribute('id');
-  let bottom = getBottom(currId);
+  let left = getLeft(currId);
+  let right = getRight(currId);
   let count = 0;
   while (count < 4) {
-    if (bottom > 0) {
-      let bottomBtn = document.getElementById(bottom);
-      if (bottomBtn.classList[1] === currentPlayer) {
-        count++;
-        bottom = getBottom(bottom.toString());
-      } else {
-        console.log('the bottom is the different color');
-      }
-    } else {
-      break;
-    }
+    if (
+      parseInt(left) > 0 &&
+      document.getElementById(left.toString()).classList[1] === currentPlayer
+    ) {
+      count++;
+      left = getLeft(left.toString());
+    } else if (
+      parseInt(right) > 0 &&
+      document.getElementById(right.toString()).classList[1] === currentPlayer
+    ) {
+      count++;
+      right = getRight(right.toString());
+    } else break;
+
     if (count === 3) {
       console.log(`${currentPlayer} is the Winner!`);
       document.getElementById('turn').innerText = 'Game is Over!';
       document.getElementById(
         'winner'
       ).innerText = `${currentPlayer} is Winner!!!`;
+      for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].classList.length === 1) {
+          buttons[i].classList.add('temp');
+        }
+      }
     }
   }
 };
 
-// a function for getting a bottom of the id
+/* const checkWinning = (aButton) => {
+  let currId = aButton.getAttribute('id');
+  let bottom = getBottom(currId);
+  let count = 0;
+  while (count < 4) {
+    if (parseInt(bottom) > 0) {
+      let bottomBtn = document.getElementById(bottom.toString());
+      if (bottomBtn.classList[1] === currentPlayer) {
+        count++;
+        bottom = getBottom(bottom.toString());
+      } else {
+        console.log('the bottom is the different color');
+        break;
+      }
+      if (count === 3) {
+        console.log(`${currentPlayer} is the Winner!`);
+        document.getElementById('turn').innerText = 'Game is Over!';
+        document.getElementById(
+          'winner'
+        ).innerText = `${currentPlayer} is Winner!!!`;
+        for (let i = 0; i < buttons.length; i++) {
+          if (buttons[i].classList.length === 1) {
+            buttons[i].classList.add('temp');
+          }
+        }
+      }
+    } else break;
+  }
+}; */
+
+// a function for getting the right of an id
+const getRight = (aId) => {
+  let right = '';
+  if (aId > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === aId) {
+        right = cells[i].right;
+        break;
+      }
+    }
+  }
+  console.log(`getBottom return right ${right} with id ${aId}`);
+  return right;
+};
+console.log(getRight('21'));
+
+// a function for getting the left of an id
+const getLeft = (aId) => {
+  let left = '';
+  if (aId > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === aId) {
+        left = cells[i].left;
+        break;
+      }
+    }
+  }
+  console.log(`getBottom return left ${left} with id ${aId}`);
+  return left;
+};
+console.log(getLeft('21'));
+
+// a function for getting the bottom of an id
 const getBottom = (aId) => {
   let bottom = '';
   if (aId > 0) {
@@ -242,7 +320,7 @@ const getBottom = (aId) => {
   return bottom;
 };
 
-// a function for getting a cell by id
+// a function for getting the cell by id
 const getCellByID = (id) => {
   let aCell = new Cell(0);
   if (id > 0) {
@@ -261,6 +339,8 @@ const restart = () => {
     buttons[i].style.backgroundColor = 'lightblue';
     buttons[i].className = 'btn';
     currentPlayer = players[0];
+    document.getElementById('turn').innerText = `${currentPlayer} Goes First!`;
+    document.getElementById('winner').innerText = `Game Restart!`;
   }
 };
 ////////////////////////////////
