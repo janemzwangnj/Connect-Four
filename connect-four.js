@@ -191,12 +191,10 @@ const chooseRow = (aColumn) => {
   let i = 0;
   while (i < aColumn.children.length) {
     let arr = aColumn.children[i].classList;
-    // console.log(arr);
     if (arr.length === 1) {
       arr.add(currentPlayer);
       aColumn.children[i].style.backgroundColor = currentPlayer;
       checkWinning(aColumn.children[i]);
-      //console.log(aColumn.children[i]);
       break;
     }
     i = i + 1;
@@ -204,37 +202,44 @@ const chooseRow = (aColumn) => {
 };
 
 const checkWinning = (aButton) => {
-  //console.log(`here is check winn and ${currentPlayer}`);
   let currId = aButton.getAttribute('id');
-  let cell1 = getCellByID(currId);
-  //console.log(cell1);
-  if (parseInt(cell1.bottom) > 0) {
-    console.log('one level low');
-    let bottom1 = parseInt(cell1.bottom);
+  let bottom = getBottom(currId);
+  let count = 0;
+  while (count < 4) {
+    if (bottom > 0) {
+      let bottomBtn = document.getElementById(bottom);
+      if (bottomBtn.classList[1] === currentPlayer) {
+        count++;
+        bottom = getBottom(bottom.toString());
+      } else {
+        console.log('the bottom is the different color');
+      }
+    } else {
+      break;
+    }
+    if (count === 3) {
+      console.log(`${currentPlayer} is the Winner!`);
+      document.getElementById('turn').innerText = 'Game is Over!';
+      document.getElementById(
+        'winner'
+      ).innerText = `${currentPlayer} is Winner!!!`;
+    }
+  }
+};
 
-    let bottomBtn1 = document.getElementById(bottom1);
-    let cell2 = getCellByID(bottom1);
-    console.log(cell2);
-    console.log('cell2');
-    if (cell2.bottom > 0) {
-      console.log('two level low');
-      let bottom2 = cell2.bottom;
-      let bottomBtn2 = document.getElementById(bottom2);
-      let cell3 = getCellByID(bottom2);
-      if (cell3.bottom > 0) {
-        console.log('three level low');
-        let bottom3 = cell3.bottom;
-        let bottomBtn3 = document.getElementById(bottom3);
-        if (
-          bottomBtn1.classList[1] === currentPlayer &&
-          bottomBtn2.classList[1] === currentPlayer &&
-          bottomBtn3.classList[1] === currentPlayer
-        ) {
-          console.log(`${currentPlayer} is the Winner!`);
-        }
+// a function for getting a bottom of the id
+const getBottom = (aId) => {
+  let bottom = '';
+  if (aId > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === aId) {
+        bottom = cells[i].bottom;
+        break;
       }
     }
   }
+  console.log(`getBottom return bottom ${bottom} with id ${aId}`);
+  return bottom;
 };
 
 // a function for getting a cell by id
@@ -255,6 +260,7 @@ const restart = () => {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].style.backgroundColor = 'lightblue';
     buttons[i].className = 'btn';
+    currentPlayer = players[0];
   }
 };
 ////////////////////////////////
