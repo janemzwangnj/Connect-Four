@@ -214,6 +214,48 @@ const checkWinning = (aButton) => {
   let right = getRight(currId);
   let topLeft = getTopLeft(currId);
   let bottomRight = getBottomRight(currId);
+  let bottomLeft = getBottomLeft(currId);
+  let topRight = getTopRight(currId);
+
+  let count = 0;
+  while (count < 4) {
+    if (
+      parseInt(bottomLeft) > 0 &&
+      document.getElementById(bottomLeft.toString()).classList[1] ===
+        currentPlayer
+    ) {
+      count++;
+      bottomLeft = getBottomLeft(bottomLeft.toString());
+    } else if (
+      parseInt(topRight) > 0 &&
+      document.getElementById(topRight.toString()).classList[1] ===
+        currentPlayer
+    ) {
+      count++;
+      topRight = getTopRight(topRight.toString());
+    } else break;
+
+    if (count === 3) {
+      console.log(`${currentPlayer} is the Winner!`);
+      document.getElementById('turn').innerText = 'Game is Over!';
+      document.getElementById(
+        'winner'
+      ).innerText = `${currentPlayer} is Winner!!!`;
+      for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].classList.length === 1) {
+          buttons[i].classList.add('temp');
+        }
+      }
+    }
+  }
+};
+
+/* const checkWinning = (aButton) => {
+  let currId = aButton.getAttribute('id');
+  let left = getLeft(currId);
+  let right = getRight(currId);
+  let topLeft = getTopLeft(currId);
+  let bottomRight = getBottomRight(currId);
 
   let count = 0;
   while (count < 4) {
@@ -245,7 +287,7 @@ const checkWinning = (aButton) => {
       }
     }
   }
-};
+}; */
 
 /* const checkWinning = (aButton) => {
   let currId = aButton.getAttribute('id');
@@ -312,6 +354,22 @@ const checkWinning = (aButton) => {
   }
 }; */
 
+// a function for getting the topRight of an id
+const getTopRight = (aId) => {
+  let topRight = '';
+  if (aId > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === aId) {
+        topRight = cells[i].topRight;
+        break;
+      }
+    }
+  }
+  console.log(`getBottom return bottom Right ${topRight} with id ${aId}`);
+  return topRight;
+};
+console.log(getTopRight('21'));
+
 // a function for getting the bottomRight of an id
 const getBottomRight = (aId) => {
   let bottomRight = '';
@@ -327,6 +385,22 @@ const getBottomRight = (aId) => {
   return bottomRight;
 };
 console.log(getBottomRight('21'));
+
+// a function for getting the bottomLeft of an id
+const getBottomLeft = (aId) => {
+  let bottomLeft = '';
+  if (aId > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === aId) {
+        bottomLeft = cells[i].bottomLeft;
+        break;
+      }
+    }
+  }
+  console.log(`getBottom return bottom left ${bottomLeft} with id ${aId}`);
+  return bottomLeft;
+};
+console.log(getBottomLeft('21'));
 
 // a function for getting the topLeft of an id
 const getTopLeft = (aId) => {
