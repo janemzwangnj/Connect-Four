@@ -1,4 +1,5 @@
 // Global Variables Here
+
 class Cell {
   top = '';
   bottom = '';
@@ -17,9 +18,7 @@ const cells = [];
 const buttons = document.querySelectorAll('.btn');
 const columns = document.querySelectorAll('.column');
 const numOfColumns = columns.length;
-console.log(numOfColumns);
 const numOfRows = columns[0].children.length;
-console.log(numOfRows);
 
 // define 9 functions for 9 cases
 // setNeighbor1 is the case of x=0 and y=0
@@ -166,31 +165,83 @@ for (let x = 0; x < numOfColumns; x++) {
     cells.push(aCell);
   }
 }
-console.log(cells);
+// the code block from line 16 to line 167 is building a objec arry
+// each object of cell has 8 neighbors (top, bottom, left, right, topLeft,topRight, bottomLeft and bottomRight)
+
+const restartButton = document.getElementById('start');
+const players = ['Red', 'Black'];
+let winner = false;
+let currentPlayer = players[0];
 
 ////////////////////////////////
 // Functions For Game Logic Here
 const inputRedBlack = (aColumn, x) => {
-  //console.log(x);
-  const aButton = document.getElementById('1');
-  let arr = aButton.classList;
-  arr.add('black');
-  // console.log(arr);
-  //console.log(document.getElementsByClassName('black'));
-  //console.log(aButton.classList[1]);
-  //console.log(aButton);
+  if (currentPlayer === players[0]) {
+    //console.log('here will set red in column x');
+    console.log(aColumn.children[0].classList);
+    let i = 0;
+    while (i < aColumn.children.length) {
+      let arr = aColumn.children[i].classList;
+      console.log(arr);
+      if (arr.length === 1) {
+        arr.add('red');
+        aColumn.children[i].style.backgroundColor = 'red';
+        break;
+      }
+      i = i + 1;
+    }
+
+    checkWinning();
+    currentPlayer = players[1];
+  } else if (currentPlayer === players[1]) {
+    //console.log('here will set black in column x');
+    let j = 0;
+    while (j < aColumn.children.length) {
+      let arr = aColumn.children[j].classList;
+      console.log(arr);
+      if (arr.length === 1) {
+        arr.add('black');
+        aColumn.children[j].style.backgroundColor = 'black';
+        break;
+      }
+      j = j + 1;
+    }
+
+    checkWinning();
+    currentPlayer = players[0];
+  }
+  document.getElementById('turn').innerText = `${currentPlayer}\'s turn now!`;
 };
 
+/* const aButton = document.getElementById('1');
+let arr = aButton.classList;
+console.log(arr.length);
+arr.add('red');
+console.log(arr); */
+//console.log(document.getElementsByClassName('black'));
+//console.log(aButton.classList[1]);
+//console.log(aButton);
+
+const checkWinning = () => {
+  console.log('here is check winn');
+};
+const restart = () => {
+  console.log('here is restart function. will complete later');
+};
 ////////////////////////////////
 // Event Listeners Here
-const gameStart = () => {
+function gameStart() {
   for (let i = 0; i < columns.length; i++) {
     columns[i].addEventListener('click', () => {
       //  console.log(columns[i]);
       inputRedBlack(columns[i], i);
     });
   }
-};
+
+  restartButton.addEventListener('click', () => {
+    restart();
+  });
+}
 
 /////////////////////////////
 gameStart();
