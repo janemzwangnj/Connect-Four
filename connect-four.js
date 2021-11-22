@@ -212,6 +212,45 @@ const checkWinning = (aButton) => {
   let currId = aButton.getAttribute('id');
   let left = getLeft(currId);
   let right = getRight(currId);
+  let topLeft = getTopLeft(currId);
+  let bottomRight = getBottomRight(currId);
+
+  let count = 0;
+  while (count < 4) {
+    if (
+      parseInt(topLeft) > 0 &&
+      document.getElementById(topLeft.toString()).classList[1] === currentPlayer
+    ) {
+      count++;
+      topLeft = getTopLeft(topLeft.toString());
+    } else if (
+      parseInt(bottomRight) > 0 &&
+      document.getElementById(bottomRight.toString()).classList[1] ===
+        currentPlayer
+    ) {
+      count++;
+      bottomRight = getBottomRight(bottomRight.toString());
+    } else break;
+
+    if (count === 3) {
+      console.log(`${currentPlayer} is the Winner!`);
+      document.getElementById('turn').innerText = 'Game is Over!';
+      document.getElementById(
+        'winner'
+      ).innerText = `${currentPlayer} is Winner!!!`;
+      for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].classList.length === 1) {
+          buttons[i].classList.add('temp');
+        }
+      }
+    }
+  }
+};
+
+/* const checkWinning = (aButton) => {
+  let currId = aButton.getAttribute('id');
+  let left = getLeft(currId);
+  let right = getRight(currId);
   let count = 0;
   while (count < 4) {
     if (
@@ -242,7 +281,7 @@ const checkWinning = (aButton) => {
     }
   }
 };
-
+ */
 /* const checkWinning = (aButton) => {
   let currId = aButton.getAttribute('id');
   let bottom = getBottom(currId);
@@ -272,6 +311,38 @@ const checkWinning = (aButton) => {
     } else break;
   }
 }; */
+
+// a function for getting the bottomRight of an id
+const getBottomRight = (aId) => {
+  let bottomRight = '';
+  if (aId > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === aId) {
+        bottomRight = cells[i].bottomRight;
+        break;
+      }
+    }
+  }
+  console.log(`getBottom return bottom Right ${bottomRight} with id ${aId}`);
+  return bottomRight;
+};
+console.log(getBottomRight('21'));
+
+// a function for getting the topLeft of an id
+const getTopLeft = (aId) => {
+  let topLeft = '';
+  if (aId > 0) {
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].id === aId) {
+        topLeft = cells[i].topLeft;
+        break;
+      }
+    }
+  }
+  console.log(`getBottom return topLeft ${topLeft} with id ${aId}`);
+  return topLeft;
+};
+console.log(getTopLeft('21'));
 
 // a function for getting the right of an id
 const getRight = (aId) => {
