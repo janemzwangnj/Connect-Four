@@ -49,8 +49,12 @@ nav {
 }
 #hovClick {
   height: 50px;
-  padding: 10px 5px;
+  margin: auto;
+  padding: 10px 2px;
   background-color: lightblue;
+
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 1fr;
 }
 #whole-board {
   width: 350px;
@@ -66,10 +70,10 @@ nav {
 #trangle-down {
   width: 0;
   height: 0;
-  padding: auto;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-top: 40px solid rgb(174, 150, 150);
+  grid-column-start: 2;
 }
 #bottom {
   display: flex;
@@ -87,11 +91,6 @@ nav {
   display: flex;
   flex-direction: column-reverse;
 }
-.column:hover,
-#column3:hover,
-#column4:hover,
-#column5:hover,
-#column6:hover,
-#column7:hover {
-  background-color: moccasin;
+.column:hover {
+  background-color: wheat;
 }

@@ -1,4 +1,8 @@
 // Global Variables Here
+const restartButton = document.getElementById('start');
+const trangleDown = document.getElementById('trangle-down');
+const players = ['Red', 'Black'];
+let currentPlayer = players[0];
 
 class Cell {
   constructor(id) {
@@ -165,14 +169,8 @@ for (let x = 0; x < numOfColumns; x++) {
     cells.push(aCell);
   }
 }
-//console.log(cells);
 // the code block from line 16 to line 167 is building a objec arry
 // each object of cell has 8 neighbors (top, bottom, left, right, topLeft,topRight, bottomLeft and bottomRight)
-
-const restartButton = document.getElementById('start');
-const players = ['Red', 'Black'];
-let winner = false;
-let currentPlayer = players[0];
 
 ////////////////////////////////
 // Functions For Game Logic Here
@@ -310,7 +308,6 @@ const bottomToDown = (bottom) => {
 
 //reset 42 cells on the board when ther is a win case happened
 const winSetup = () => {
-  console.log(`${currentPlayer} is the Winner!`);
   document.getElementById('turn').innerText = 'Game is Over!';
   document.getElementById('winner').innerText = `${currentPlayer} is Winner!!!`;
   for (let i = 0; i < buttons.length; i++) {
@@ -331,10 +328,8 @@ const getTopRight = (aId) => {
       }
     }
   }
-  console.log(`getBottom return bottom Right ${topRight} with id ${aId}`);
   return topRight;
 };
-console.log(getTopRight('21'));
 
 // a function for getting the bottomRight of an id
 const getBottomRight = (aId) => {
@@ -347,10 +342,8 @@ const getBottomRight = (aId) => {
       }
     }
   }
-  console.log(`getBottom return bottom Right ${bottomRight} with id ${aId}`);
   return bottomRight;
 };
-console.log(getBottomRight('21'));
 
 // a function for getting the bottomLeft of an id
 const getBottomLeft = (aId) => {
@@ -363,10 +356,8 @@ const getBottomLeft = (aId) => {
       }
     }
   }
-  console.log(`getBottom return bottom left ${bottomLeft} with id ${aId}`);
   return bottomLeft;
 };
-console.log(getBottomLeft('21'));
 
 // a function for getting the topLeft of an id
 const getTopLeft = (aId) => {
@@ -379,10 +370,8 @@ const getTopLeft = (aId) => {
       }
     }
   }
-  console.log(`getBottom return topLeft ${topLeft} with id ${aId}`);
   return topLeft;
 };
-console.log(getTopLeft('21'));
 
 // a function for getting the right of an id
 const getRight = (aId) => {
@@ -395,10 +384,8 @@ const getRight = (aId) => {
       }
     }
   }
-  console.log(`getBottom return right ${right} with id ${aId}`);
   return right;
 };
-console.log(getRight('21'));
 
 // a function for getting the left of an id
 const getLeft = (aId) => {
@@ -411,10 +398,8 @@ const getLeft = (aId) => {
       }
     }
   }
-  console.log(`getBottom return left ${left} with id ${aId}`);
   return left;
 };
-console.log(getLeft('21'));
 
 // a function for getting the bottom of an id
 const getBottom = (aId) => {
@@ -427,21 +412,7 @@ const getBottom = (aId) => {
       }
     }
   }
-  console.log(`getBottom return bottom ${bottom} with id ${aId}`);
   return bottom;
-};
-
-// a function for getting the cell by id
-const getCellByID = (id) => {
-  let aCell = new Cell(0);
-  if (id > 0) {
-    for (let i = 0; i < cells.length; i++) {
-      if (cells[i].id === id) {
-        aCell = cells[i];
-      }
-    }
-  }
-  return aCell;
 };
 
 //this function is for restart the game
@@ -454,12 +425,20 @@ const restart = () => {
     document.getElementById('winner').innerText = `Game Restart!`;
   }
 };
+
+//this function is for moving trangle-down around
+const moveTrangleDown = (j) => {
+  let trangleDownStyle = window.getComputedStyle(trangleDown);
+  //console.log(trangleDown);
+  //console.log(trangleDownStyle[132]);
+  trangleDown.style.gridColumnStart = j + 1;
+};
+
 ////////////////////////////////
 // Event Listeners Here
 const gameStart = () => {
   for (let i = 0; i < columns.length; i++) {
     columns[i].addEventListener('click', () => {
-      //  console.log(columns[i]);
       inputRedBlack(columns[i], i);
     });
   }
@@ -467,6 +446,12 @@ const gameStart = () => {
   restartButton.addEventListener('click', () => {
     restart();
   });
+
+  for (let j = 0; j < columns.length; j++) {
+    columns[j].addEventListener('mouseover', () => {
+      moveTrangleDown(j);
+    });
+  }
 };
 
 /////////////////////////////
