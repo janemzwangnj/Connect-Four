@@ -1,13 +1,21 @@
 html,
 body {
-  margin: 20px;
+  margin: 20px 40px;
   font-family: Arial, Helvetica, sans-serif;
 }
 * {
   box-sizing: border-box;
 }
+header {
+  height: 120px;
+  background-color: wheat;
+
+  padding: 10px;
+  margin-top: 10px;
+}
 h1 {
   text-align: center;
+  align-content: center;
   margin-top: 20px;
 }
 img {
@@ -17,4 +25,17 @@ ul {
   list-style: none;
   margin: auto;
   padding: 10px;
+}
+nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+#gap {
+  height: 10px;
+  background-color: wheat;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }

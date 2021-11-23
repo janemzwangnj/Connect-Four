@@ -3,6 +3,8 @@ const restartButton = document.getElementById('start');
 const trangleDown = document.getElementById('trangle-down');
 const players = ['Red', 'Black'];
 let currentPlayer = players[0];
+let countRed = 0;
+let countBlack = 0;
 
 class Cell {
   constructor(id) {
@@ -176,9 +178,11 @@ for (let x = 0; x < numOfColumns; x++) {
 // Functions For Game Logic Here
 const inputRedBlack = (aColumn, x) => {
   if (currentPlayer === players[0]) {
+    countRed++;
     chooseRow(aColumn);
     currentPlayer = players[1];
   } else if (currentPlayer === players[1]) {
+    countBlack++;
     chooseRow(aColumn);
     currentPlayer = players[0];
   }
@@ -304,6 +308,10 @@ const bottomToDown = (bottom) => {
   }
   if (count >= 3) {
     winSetup();
+  }
+  if (countRed + countBlack === 42) {
+    document.getElementById('winner').innerText = 'It is a tie!';
+    document.getElementById('turn').innerText = 'Game Over!!';
   }
 };
 
