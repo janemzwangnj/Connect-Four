@@ -199,6 +199,7 @@ const chooseRow = (aColumn) => {
       arr.add(currentPlayer);
       aColumn.children[i].style.backgroundColor = currentPlayer;
       document.getElementById('turn').innerText = `${tmpPlayer}\'s turn now!`;
+      document.getElementById('turn').style.color = tmpPlayer;
       checkWinning(aColumn.children[i]);
       break;
     }
@@ -240,7 +241,7 @@ const bottomLeftToTopRight = (bottomLeft, topRight) => {
       topRight = getTopRight(topRight.toString());
     } else break;
   }
-  if (count === 3) {
+  if (count >= 3) {
     winSetup();
   }
 };
@@ -263,7 +264,7 @@ const topLeftToBottomRight = (topLeft, bottomRight) => {
       bottomRight = getBottomRight(bottomRight.toString());
     } else break;
   }
-  if (count === 3) {
+  if (count >= 3) {
     winSetup();
   }
 };
@@ -285,7 +286,7 @@ const leftToRight = (left, right) => {
       right = getRight(right.toString());
     } else break;
   }
-  if (count === 3) {
+  if (count >= 3) {
     winSetup();
   }
 };
@@ -301,7 +302,7 @@ const bottomToDown = (bottom) => {
       bottom = getBottom(bottom.toString());
     } else break;
   }
-  if (count === 3) {
+  if (count >= 3) {
     winSetup();
   }
 };
@@ -310,6 +311,7 @@ const bottomToDown = (bottom) => {
 const winSetup = () => {
   document.getElementById('turn').innerText = 'Game is Over!';
   document.getElementById('winner').innerText = `${currentPlayer} is Winner!!!`;
+  document.getElementById('winner').style.color = `${currentPlayer}`;
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].classList.length === 1) {
       buttons[i].classList.add('temp');
@@ -422,15 +424,14 @@ const restart = () => {
     buttons[i].className = 'btn';
     currentPlayer = players[0];
     document.getElementById('turn').innerText = `${currentPlayer} Goes First!`;
+    document.getElementById('turn').style.color = 'red';
     document.getElementById('winner').innerText = `Game Restart!`;
+    document.getElementById('winner').style.color = 'black';
   }
 };
 
 //this function is for moving trangle-down around
 const moveTrangleDown = (j) => {
-  let trangleDownStyle = window.getComputedStyle(trangleDown);
-  //console.log(trangleDown);
-  //console.log(trangleDownStyle[132]);
   trangleDown.style.gridColumnStart = j + 1;
 };
 

@@ -27,6 +27,7 @@ nav {
   margin: auto;
   padding: 10px;
   background-color: olivedrab;
+  font-size: 30px;
 }
 #board {
   display: grid;
@@ -73,7 +74,7 @@ nav {
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-top: 40px solid rgb(174, 150, 150);
-  grid-column-start: 2;
+  grid-column-start: 1;
 }
 #bottom {
   display: flex;
@@ -93,4 +94,11 @@ nav {
 }
 .column:hover {
   background-color: wheat;
+}
+#turn {
+  color: red;
+  font-size: 20px;
+}
+#winner {
+  font-size: 20px;
 }
