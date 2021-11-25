@@ -176,7 +176,7 @@ for (let x = 0; x < numOfColumns; x++) {
 
 ////////////////////////////////
 // Functions For Game Logic Here
-const inputRedBlack = (aColumn, x) => {
+const inputRedBlack = (aColumn) => {
   if (currentPlayer === players[0]) {
     countRed++;
     chooseRow(aColumn);
@@ -220,10 +220,15 @@ const checkWinning = (aButton) => {
   let bottomRight = getBottomRight(currId);
   let bottomLeft = getBottomLeft(currId);
   let topRight = getTopRight(currId);
+
   bottomToDown(bottom);
   leftToRight(left, right);
   topLeftToBottomRight(topLeft, bottomRight);
   bottomLeftToTopRight(bottomLeft, topRight);
+  if (countRed + countBlack >= 42) {
+    document.getElementById('winner').innerText = 'It is a tie!';
+    document.getElementById('turn').innerText = 'Game Over!!';
+  }
 };
 
 const bottomLeftToTopRight = (bottomLeft, topRight) => {
@@ -304,14 +309,12 @@ const bottomToDown = (bottom) => {
     ) {
       count++;
       bottom = getBottom(bottom.toString());
-    } else break;
+    } else {
+      break;
+    }
   }
   if (count >= 3) {
     winSetup();
-  }
-  if (countRed + countBlack === 42) {
-    document.getElementById('winner').innerText = 'It is a tie!';
-    document.getElementById('turn').innerText = 'Game Over!!';
   }
 };
 
@@ -320,6 +323,7 @@ const winSetup = () => {
   document.getElementById('turn').innerText = 'Game is Over!';
   document.getElementById('winner').innerText = `${currentPlayer} is Winner!!!`;
   document.getElementById('winner').style.color = `${currentPlayer}`;
+
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].classList.length === 1) {
       buttons[i].classList.add('temp');
@@ -435,6 +439,8 @@ const restart = () => {
     document.getElementById('turn').style.color = 'red';
     document.getElementById('winner').innerText = `Game Restart!`;
     document.getElementById('winner').style.color = 'black';
+    countRed = 0;
+    countBlack = 0;
   }
 };
 
@@ -448,7 +454,7 @@ const moveTrangleDown = (j) => {
 const gameStart = () => {
   for (let i = 0; i < columns.length; i++) {
     columns[i].addEventListener('click', () => {
-      inputRedBlack(columns[i], i);
+      inputRedBlack(columns[i]);
     });
   }
 

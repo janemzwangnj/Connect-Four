@@ -23,8 +23,12 @@ img {
 }
 ul {
   list-style: none;
-  margin: auto;
-  padding: 10px;
+  margin-left: 20px;
+  padding: 20px;
+}
+li {
+  margin-top: 5px;
+  margin-left: 20px;
 }
 nav {
   display: flex;
