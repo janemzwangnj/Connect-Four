@@ -1,6 +1,6 @@
 # Connect-Four
 
-### Date: 11/18/2021 Due
+### Date: 11/18/2021
 
 ### By: Jane Mingzhen Wnag
 
