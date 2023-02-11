@@ -23,35 +23,8 @@
 
 ##### \*\*The working times on each sections are wild estimated and will have more details on [trello](https://trello.com/b/fuOiyrD1/project-connect4)
 
----
-## Project Requirements (MVP)
 
-- Be a **new repo**. Create a new repo in your GitHub and build your project there. 
-- Include a _beautiful_, professional **README.md** (use [markdown](https://guides.github.com/features/mastering-markdown/))
-- Utilize flexbox or grid (or both)
-- Include a minimum of **2 HTML pages** and navigation between them
-- Include a minimum of **2 event handlers**
-- Have at least **20** _meaningful_ `git` commits. You should be committing your changes every time you build a new feature.
-- Your code should be properly indented, spaced, and within code blocks. **DO NOT** leave in commented out code that was left unused (bad practice). Comments, if in your code at all, should be in your code to describe what your functions are doing.
-- Display proper use of global variables and function parameters (function scopes)
-- Use camelCase for JavaScript variables
 
----
 
-## How to get started
-
-- Write project readme.md (will modify later)
-- Work a detail plan in trello
-- Research and design connet-foure styling
-- Design and implement the control logic
-
----
-
-## Credits
-
-- Full credit for completion of 2 players Connect Foure with nice styling and logic correctly implemented
-- Bonus for AI which one player to computer
-
----
 
 ## Due Date: 11/23/21 by 1:30PM EST
